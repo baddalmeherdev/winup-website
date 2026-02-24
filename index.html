@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinUp | Premium Esports Tournaments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- BRAND COLORS --- */
+        :root {
+            --bg-color: #0d0d12; 
+            --bg-gradient: #1e1b4b; 
+            --text-color: #ffffff;
+            --text-muted: #9ca3af;
+            --brand-purple: #9333ea; 
+            --brand-green: #4ade80; 
+            --green-glow: rgba(74, 222, 128, 0.5);
+            --purple-glow: rgba(147, 51, 234, 0.5);
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% -20%, var(--bg-gradient) 0%, var(--bg-color) 70%);
+            min-height: 100vh;
+        }
+
+        h1, h3, .logo { font-family: 'Rajdhani', sans-serif; text-transform: uppercase; }
+
+        /* Typography */
+        .purple-text { color: var(--brand-purple); text-shadow: 0 0 20px var(--purple-glow); }
+        .green-text { color: var(--brand-green); font-weight: bold; }
+        
+        /* Navbar */
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(13, 13, 18, 0.85);
+            backdrop-filter: blur(12px); position: fixed; width: 100%;
+            top: 0; z-index: 100; border-bottom: 1px solid var(--border-color);
+        }
+        .logo { font-size: 2.2rem; font-weight: 700; letter-spacing: 1px; color: var(--brand-purple); text-shadow: 0 0 10px var(--purple-glow);}
+
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; font-weight: 700;
+            text-decoration: none; border: none; cursor: pointer; transition: 0.3s;
+        }
+        .primary-btn {
+            background: linear-gradient(90deg, #4ade80, #22c55e); color: #000; width: 100%; max-width: 360px;
+            box-shadow: 0 10px 25px var(--green-glow); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .primary-btn:hover { transform: translateY(-4px); box-shadow: 0 15px 35px var(--green-glow); }
+        .primary-btn:active { transform: scale(0.96); }
+        
+        .nav-btn { background: transparent; color: #fff; border: 1px solid var(--border-color); padding: 8px 20px; font-size: 0.95rem; border-radius: 6px;}
+        .nav-btn:hover { border-color: var(--brand-green); color: var(--brand-green); background: rgba(74, 222, 128, 0.05); }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 5% 60px; display: flex; flex-direction: column;
+            align-items: center; text-align: center; gap: 50px;
+        }
+        
+        /* Trust Badge & Live Animation */
+        .badges-wrapper { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+        
+        .trust-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; 
+            background: rgba(74, 222, 128, 0.08); border: 1px solid rgba(74, 222, 128, 0.3); 
+            border-radius: 30px; font-size: 0.85rem; color: var(--brand-green); font-weight: 600;
+        }
+        
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; 
+            background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); 
+            border-radius: 30px; font-size: 0.85rem; color: #ef4444; font-weight: 600;
+        }
+        .live-dot {
+            width: 8px; height: 8px; background-color: #ef4444; border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .hero h1 { font-size: 3.2rem; line-height: 1.15; margin-bottom: 15px; text-transform: none; font-family: 'Rajdhani', sans-serif;}
+        .hero p { font-size: 1.05rem; color: var(--text-muted); max-width: 550px; line-height: 1.7; margin-bottom: 35px; }
+
+        /* Premium Features Grid */
+        .features-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
+            margin-top: 35px; width: 100%; max-width: 520px;
+        }
+        .feature-card {
+            background: linear-gradient(145deg, var(--card-bg), rgba(255,255,255,0.01)); 
+            border: 1px solid var(--border-color);
+            padding: 18px 15px; border-radius: 14px; text-align: left;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .feature-card:hover { 
+            border-color: rgba(147, 51, 234, 0.4); 
+            background: rgba(147, 51, 234, 0.05); 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .f-icon { font-size: 1.8rem; margin-bottom: 8px; display: inline-block; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+        .f-title { font-size: 1.05rem; color: #fff; font-weight: 700; margin-bottom: 5px; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px;}
+        .f-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* Trust Rating */
+        .trust-rating { margin-top: 20px; font-size: 0.95rem; color: #d1d5db; display: flex; flex-direction: column; align-items: center; gap: 5px; font-weight: 500;}
+        .stars { color: #fbbf24; font-size: 1.3rem; letter-spacing: 3px; filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4));}
+
+        /* Phone Mockup */
+        .mockup-container {
+            width: 300px; height: 600px; background: #000;
+            border: 14px solid #111; border-radius: 48px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 80px rgba(147, 51, 234, 0.2);
+            position: relative; overflow: hidden;
+        }
+        .mockup-container::before {
+            content: ''; position: absolute; top: 0; width: 140px; height: 28px;
+            background: #111; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
+            z-index: 2;
+        }
+        .app-screenshot {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 34px;
+            position: relative; z-index: 1;
+        }
+
+        /* Responsive Desktop Fixes */
+        @media (min-width: 992px) {
+            .hero { flex-direction: row; text-align: left; justify-content: space-between; padding-top: 150px; max-width: 1200px; margin: 0 auto; gap: 20px;}
+            .badges-wrapper { justify-content: flex-start; }
+            .hero h1 { font-size: 4.8rem; }
+            .hero p { font-size: 1.15rem; margin-left: 0; }
+            .features-grid { margin-left: 0; }
+            .trust-rating { align-items: flex-start; }
+            .mockup-container { width: 340px; height: 680px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">WinUp</div>
+        <a href="https://www.mediafire.com/file/p0hf13sduxi6sfq/WinupTournament.apk/file" target="_blank" class="btn nav-btn">Download App</a>
+    </nav>
+
+    <section class="hero">
+        
+        <div class="hero-text">
+            
+            <div class="badges-wrapper">
+                <div class="live-badge">
+                    <div class="live-dot"></div> Live Tournaments
+                </div>
+                <div class="trust-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    100% Secure & Verified
+                </div>
+            </div>
+            
+            <h1>Play Tournaments.<br>Earn <span class="purple-text">Real Cash.</span></h1>
+            <p>Join India's most premium Esports arena. Play daily custom rooms, showcase your gaming skills, and get paid instantly directly to your wallet.</p>
+            
+            <a href="https://www.mediafire.com/file/p0hf13sduxi6sfq/WinupTournament.apk/file" target="_blank" class="btn primary-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download WinUp APK
+            </a>
+
+            <div class="trust-rating">
+                <div class="stars">★★★★★</div>
+                <span>Trusted by Gamers</span>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="f-icon">🎯</span>
+                    <div class="f-title">Earn Per Kill</div>
+                    <div class="f-desc">Get guaranteed cash rewards for every enemy you defeat.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon">🤝</span>
+                    <div class="f-title">Refer & Earn</div>
+                    <div class="f-desc">Invite your gaming squad and earn instant bonus rewards.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon">📺</span>
+                    <div class="f-title">Watch & Earn</div>
+                    <div class="f-desc">Watch short videos daily to claim free bonus coins.</div>
+                </div>
+                <div class="feature-card">
+                    <span class="f-icon">⚡</span>
+                    <div class="f-title">Instant Withdraw</div>
+                    <div class="f-desc">Transfer your winnings directly to UPI/Wallet anytime.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mockup-container">
+            <img src="app.jpg" alt="WinUp App Screenshot" class="app-screenshot">
+        </div>
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Prevent right click to protect images and code
+            document.addEventListener('contextmenu', e => e.preventDefault());
+        });
+    </script>
+</body>
+</html>
